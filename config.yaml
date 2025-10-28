@@ -1,0 +1,121 @@
+# TNCP-ResearchImagery Configuration
+# Example configuration file for the platform
+
+# General settings
+project_name: tncp_cancer_research
+version: 0.1.0
+base_dir: ./workspace
+output_dir: ./outputs
+checkpoint_dir: ./checkpoints
+device: auto  # auto, cpu, cuda
+mixed_precision: true
+deterministic: true
+seed: 42
+
+# Model configuration
+model:
+  name: germ_layer_classifier
+  architecture: resnet50
+  pretrained: true
+  num_classes: 4  # ectoderm, mesoderm, endoderm, mixed
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 100
+  optimizer: adam
+  scheduler: cosine
+  dropout: 0.5
+  weight_decay: 0.0001
+
+# Data configuration
+data:
+  data_dir: ./data
+  cache_dir: ./cache
+  num_workers: 4
+  pin_memory: true
+  augmentation: true
+  normalization: standard
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  seed: 42
+
+# Medical imaging configuration
+imaging:
+  modalities:
+    - CT
+    - MRI
+    - PET
+  spacing: [1.0, 1.0, 1.0]
+  patch_size: [128, 128, 128]
+  overlap: 0.5
+  preprocessing: standard
+  windowing: true
+  normalization: z-score
+
+# Molecular analysis configuration
+molecular:
+  pdb_dir: ./structures
+  force_field: amber14
+  water_model: tip3p
+  box_size: 10.0
+  simulation_steps: 10000
+  temperature: 300.0
+  pressure: 1.0
+  ph: 7.4
+
+# Visualization configuration
+visualization:
+  backend: matplotlib
+  style: seaborn
+  dpi: 300
+  figsize: [10, 8]
+  colormap: viridis
+  save_format: png
+  interactive: true
+
+# Logging configuration
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  log_dir: ./logs
+  console: true
+  file: true
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+# Experiment settings
+experiment:
+  name: germ_layer_analysis_v1
+  tags:
+    - cancer_research
+    - germ_layer
+    - translational
+  description: "Analyzing cancer therapy responses based on embryonic germ layer origins"
+  tracking_uri: mlflow
+
+# Germ layer specific settings
+germ_layer:
+  cancer_types:
+    ectoderm:
+      - GBM
+      - MELANOMA
+      - NEUROBLASTOMA
+    mesoderm:
+      - AML
+      - CML
+      - SARCOMA
+    endoderm:
+      - NSCLC
+      - PANCREATIC
+      - COLORECTAL
+  
+  treatment_preferences:
+    ectoderm:
+      primary: [temozolomide, radiation]
+      secondary: [immunotherapy]
+    mesoderm:
+      primary: [targeted_therapy, chemotherapy]
+      secondary: [CAR-T]
+    endoderm:
+      primary: [chemotherapy, targeted_therapy]
+      secondary: [antiangiogenic]
