@@ -321,11 +321,7 @@ MIT License - Free for academic and commercial use
 ## 🙏 Acknowledgments
 
 Developed by **David Ferguson**, PharmD Candidate  
-Howard University College of Pharmacy  
-With support from:
-- Boston Children's Hospital
-- Novartis Pharmaceuticals
-- The open-source scientific community
+
 
 ---
 
